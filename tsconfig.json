@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "target": "es6",
+        "noImplicitAny": true,
+        "moduleResolution": "nodenext",
+        "module": "NodeNext",
+        "sourceMap": true,
+        "outDir": "dist",
+        "baseUrl": ".",
+        "skipLibCheck": true,
+        "paths": {
+            "*": ["node_modules/*", "src/types/*"]
+        }
+    },
+    "include": ["./src/**/*"]
+}

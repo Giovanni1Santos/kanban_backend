@@ -1,0 +1,44 @@
+services:
+
+  postgres:
+    image: postgres
+    container_name: my-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      pgdata: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: my-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@domain.com
+      PGADMIN_DEFAULT_PASSWORD: postgres
+      PGADMIN_CONFIG_SERVER_MODE: "True"
+      PGADMIN_CONFIG_PROXY_X_HOST_COUNT: 1
+      PGADMIN_CONFIG_PROXY_X_PREFIX_COUNT: 1
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "15432:80"
+    depends_on:
+      - postgres
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
