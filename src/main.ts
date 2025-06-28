@@ -24,7 +24,12 @@ const limiter = rateLimit({
 });
 
 app.use(helmet());
-app.use(cors());
+const cors = require('cors');
+
+app.use(cors({
+  origin: 'https://kanban-frontend-chi-seven.vercel.app/',
+  credentials: true
+}));
 app.use(express.json());
 if (process.env.NODE_ENV === "production") {
   app.use(limiter);
